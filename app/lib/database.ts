@@ -1,10 +1,11 @@
 import {createClient } from "@libsql/client";
 import assert from "assert";
 
-const url = process.env.TURSO_DATABASE_URL;
-const token = process.env.TURSO_AUTH_TOKEN;
 
 function CreateTursoClient(){
+const url = process.env.NEXT_PUBLIC_TURSO_DATABASE_URL;
+const token = process.env.NEXT_PUBLIC_TURSO_AUTH_TOKEN;
+console.log(url);
     assert.ok(url);
     assert.ok(token);
     return createClient({
