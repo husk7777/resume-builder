@@ -9,7 +9,8 @@ export type Person = {
     about: string,
     title: string,
     positions: Position[],
-    skills: Skill[]
+    skills: Skill[],
+    qualifications: Qualification[]
 }
 
 export type Position = {

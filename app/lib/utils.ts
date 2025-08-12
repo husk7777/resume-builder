@@ -3,7 +3,7 @@ import {Person, Position, Responsibility, Accomplishment, Qualification, Skill, 
 export function MapPersonDataToModel(row:any){
     const dateOfBirth = new Date(Date.parse(row.DateOfBirth));
     const person:Person = {
-        id: row.PkPerson_Id,
+        id: row.PK_PersonId,
         givenName: row.GivenName,
         familyName: row.FamilyName,
         emailAddress: row.EmailAddress,
@@ -13,7 +13,8 @@ export function MapPersonDataToModel(row:any){
         title: row.Title,
         dateOfBirth: dateOfBirth,
         positions: [],
-        skills: []
+        skills: [],
+        qualifications: []
     };
     return person;
 }
@@ -23,13 +24,13 @@ export function MapPositionDataToModel(row: any){
     let positionEndDate = null;
     if(row.EndDate) positionEndDate = new Date(Date.parse(row.EndDate));
     const position: Position = {
-        id: row.Pk_PositionId,
+        id: row.PK_PositionId,
         title: row.Title,
         organisation: row.Organisation,
         location: row.Location, 
         startDate: positionStartDate,
         endDate: positionEndDate,
-        type: row.Type,
+        type: row.PositionType,
         responsibilities: [],
         accomplishments: []
     };
@@ -38,7 +39,7 @@ export function MapPositionDataToModel(row: any){
 
 export function MapResponsibilityDataToModel(row:any){
     const responsibility: Responsibility = {
-        id: row.Pk_ResponsibilityId,
+        id: row.PK_ResponsibilityId,
         description: row.Description
     };
     return responsibility;
@@ -46,7 +47,7 @@ export function MapResponsibilityDataToModel(row:any){
 
 export function MapAccomplishmentDataToModel(row: any){
     const accomplishment: Accomplishment = {
-        id: row.Pk_AccomplishmentId,
+        id: row.PK_AccomplishmentId,
         description: row.Description
     };
     return accomplishment;
@@ -56,7 +57,7 @@ export function MapQualificationDataToModel(row:any){
     const startDate = new Date(Date.parse(row.CommencementDate));
     const endDate = new Date(Date.parse(row.CompletionDate));
     const qualification: Qualification = {
-        id: row.Pk_QualificationId,
+        id: row.PK_QualificationId,
         name: row.QualificationName,
         commencementDate: startDate,
         completionDate: endDate,
@@ -68,7 +69,7 @@ export function MapQualificationDataToModel(row:any){
 
 export function MapSkillDataToModel(row: any){
     const skill: Skill = {
-        id: row.Pk_SkillId,
+        id: row.PK_SkillId,
         name: row.Name,
         skillLevel: row.SkillLevel,
         yearsExperience: row.YearsExperience,
@@ -76,3 +77,13 @@ export function MapSkillDataToModel(row: any){
     };
     return skill;
 }
+
+export const formatDate = (d: Date | null) =>
+    d?
+  new Date(d).toLocaleDateString('en-AU', {
+    year: 'numeric',
+    month: 'short',
+  }):"Present";
+
+export const renderDates = (start: Date, end?: Date | null) =>
+  `${formatDate(start)} - ${end ? formatDate(end) : 'Present'}`;
